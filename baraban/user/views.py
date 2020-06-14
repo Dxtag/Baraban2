@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.views import LoginView 
 from django.contrib.auth.forms import AuthenticationForm
-from .models import User
+from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from .forms import UserRegisterForm
 
@@ -13,6 +13,7 @@ def index_view(request, pk=None):
         pk = request.user.pk
     user = get_object_or_404(User, pk=pk)
     return render(request, "user/index.html", {"user":user})
+
 
 class login_view(LoginView):
     template_name = "user/login.html"
