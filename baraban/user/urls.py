@@ -3,6 +3,7 @@ from .views import index_view, login_view, logout_view, register_view
 from django.contrib.auth.models import User
 from django.http import request
 
+app_name = "user"
 
 urlpatterns = [
     path("", index_view, name="index"),

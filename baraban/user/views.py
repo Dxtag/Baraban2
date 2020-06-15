@@ -24,12 +24,12 @@ def register_view(request):
         form = UserRegisterForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect("login")
+            return redirect("user:login")
     return render(request, "user/register.html", {"form":form})
 
 @login_required
 def logout_view(request):
     logout(request)
-    return redirect("login")
+    return redirect("user:login")
     
              

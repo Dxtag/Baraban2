@@ -1,0 +1,36 @@
+{% extends "main/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<div class="container">
+    <div class="col-8 mx-auto ">
+        <div class="border mb-3">
+            <h3 class="mb-0 px-2 py-1">{{post.topic}}</h3>
+            <div class="px-2 pb-1 mb-1 text-muted">{{post.pub_date}}</div>
+            <p class="mb-auto p-2">{{post.content}}</p>
+            <a href="{% url 'user:index' post.creator.pk %}" class="p-2">{{post.creator}}</a>
+        </div>
+
+        {% for comment in comments %}
+
+        <div class="border mb-3">
+            <h5 class="mb-0 px-2 py-1"><a href="{% url 'user:index' post.creator.pk %}">{{comment.creator}}</a></h5>
+            <div class="px-2 mb-1 text-muted">{{post.pub_date}}</div>
+            <p class="mb-auto px-2 py-1"> {{comment.content}}</p>
+        </div>
+
+        {% endfor %}
+
+
+
+        <form method="POST" class="form-group">
+            {% csrf_token %}
+            {{form|crispy}}
+            <input type="submit" class="btn btn-success">
+        </form>
+    </div>
+
+</div>
+
+{% endblock %}
