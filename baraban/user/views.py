@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth import login, logout, authenticate
-from django.contrib.auth.views import LoginView 
+from django.contrib.auth.views import LoginView, PasswordChangeView, PasswordResetView 
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
@@ -25,11 +25,18 @@ def register_view(request):
         if form.is_valid():
             form.save()
             return redirect("user:login")
-    return render(request, "user/register.html", {"form":form})
+    return render(request, "user/form.html", {"form":form})
 
 @login_required
 def logout_view(request):
     logout(request)
     return redirect("user:login")
+
+class password_change_view(PasswordChangeView):
+    template_name = "user/form.html"
+
+class password_reset_view(PasswordResetView):
+    template_name = "user/form.html"
+
     
              

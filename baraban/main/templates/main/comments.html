@@ -9,14 +9,19 @@
             <h3 class="mb-0 px-2 py-1">{{post.topic}}</h3>
             <div class="px-2 pb-1 mb-1 text-muted">{{post.pub_date}}</div>
             <p class="mb-auto p-2">{{post.content}}</p>
+            {% if user == post.creator%}
+            Your post
+            <a href="{% url 'main:delete_post' post.pk %}" >delete</a>
+            {% else %}
             <a href="{% url 'user:index' post.creator.pk %}" class="p-2">{{post.creator}}</a>
+            {% endif %}
         </div>
 
         {% for comment in comments %}
 
         <div class="border mb-3">
             <h5 class="mb-0 px-2 py-1"><a href="{% url 'user:index' comment.creator.pk %}">{{comment.creator}}</a></h5>
-            <div class="px-2 mb-1 text-muted">{{post.pub_date}}</div>
+            <div class="px-2 mb-1 text-muted">{{comment.pub_date}}</div>
             <p class="mb-auto px-2 py-1"> {{comment.content}}</p>
         </div>
 

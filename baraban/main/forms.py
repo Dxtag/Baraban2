@@ -6,5 +6,5 @@ class PostForm(forms.Form):
     content = forms.CharField(widget=forms.Textarea)
 
 class CommentForm(forms.Form):
-    content = forms.CharField(widget=forms.Textarea)
+    content = forms.CharField(widget=forms.Textarea, label="Add your comment", min_length=2)
     

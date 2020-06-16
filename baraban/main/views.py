@@ -21,6 +21,13 @@ def create_post_view(request):
         form = PostForm()
     return render(request, "main/add_post.html", {"form":form})
 
+@login_required
+def delete_post_view(request, pk):
+    post = Post.objects.get(pk=pk)
+    if post.creator == request.user:
+        post.delete()
+    return redirect("main:index") 
+
 
 @login_required
 def comments_view(request, pk):
