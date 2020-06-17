@@ -28,7 +28,6 @@ def delete_post_view(request, pk):
         post.delete()
     return redirect("main:index") 
 
-
 @login_required
 def comments_view(request, pk):
     post = Post.objects.get(pk=pk)
@@ -40,6 +39,13 @@ def comments_view(request, pk):
     else:
         form = CommentForm()
     return render(request, "main/comments.html", {"form":form, "post":post, "comments":comments})
+
+@login_required
+def delete_comment_view(request, pk):
+    comment = Comment.objects.get(pk=pk)
+    if comment.creator == request.user:
+        comment.delete()
+    return redirect("main:index") 
 
 
 

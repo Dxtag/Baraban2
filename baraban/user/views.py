@@ -14,10 +14,6 @@ def index_view(request, pk=None):
     user = get_object_or_404(User, pk=pk)
     return render(request, "user/index.html", {"user":user})
 
-
-class login_view(LoginView):
-    template_name = "user/login.html"
-
 def register_view(request):
     form = UserRegisterForm()
     if request.method == "POST":
@@ -32,11 +28,13 @@ def logout_view(request):
     logout(request)
     return redirect("user:login")
 
+class login_view(LoginView):
+    template_name = "user/login.html"
+
 class password_change_view(PasswordChangeView):
     template_name = "user/form.html"
 
 class password_reset_view(PasswordResetView):
     template_name = "user/form.html"
-
     
              
