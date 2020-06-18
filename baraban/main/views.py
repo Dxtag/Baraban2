@@ -1,4 +1,4 @@
-from django.shortcuts import render, HttpResponse, redirect
+from django.shortcuts import render, HttpResponse, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .models import Post, Comment
 from .forms import PostForm, CommentForm
@@ -23,14 +23,16 @@ def create_post_view(request):
 
 @login_required
 def delete_post_view(request, pk):
-    post = Post.objects.get(pk=pk)
+    post = get_object_or_404(Post,pk=pk)
     if post.creator == request.user:
         post.delete()
-    return redirect("main:index") 
+        return redirect("main:index")
+    else:
+        return HttpResponse("Error")
 
 @login_required
 def comments_view(request, pk):
-    post = Post.objects.get(pk=pk)
+    post = get_object_or_404(Post,pk=pk)
     comments = post.comments.all()
     if request.method == "POST":
             new_comment = Comment(post=post, content=request.POST["content"], creator=request.user)
@@ -42,7 +44,7 @@ def comments_view(request, pk):
 
 @login_required
 def delete_comment_view(request, pk):
-    comment = Comment.objects.get(pk=pk)
+    comment = get_object_or_404(Comment,pk=pk)
     if comment.creator == request.user:
         comment.delete()
     return redirect("main:index") 

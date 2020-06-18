@@ -23,6 +23,9 @@
             <h5 class="mb-0 px-2 py-1"><a href="{% url 'user:index' comment.creator.pk %}">{{comment.creator}}</a></h5>
             <div class="px-2 mb-1 text-muted">{{comment.pub_date}}</div>
             <p class="mb-auto px-2 py-1"> {{comment.content}}</p>
+            {% if user == post.creator or user == comment.creator%}
+            <a href="{% url 'main:delete_comment' comment.pk %}" >delete</a>
+            {% endif %}
         </div>
 
         {% endfor %}

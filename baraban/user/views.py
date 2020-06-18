@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import render, get_object_or_404, redirect, reverse
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.views import LoginView, PasswordChangeView, PasswordResetView 
 from django.contrib.auth.forms import AuthenticationForm
@@ -33,8 +33,11 @@ class login_view(LoginView):
 
 class password_change_view(PasswordChangeView):
     template_name = "user/form.html"
+    success_url = "/"
+    
 
 class password_reset_view(PasswordResetView):
     template_name = "user/form.html"
+    success_url = "/"
     
              
